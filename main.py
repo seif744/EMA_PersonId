@@ -93,6 +93,14 @@ def main():
                     print("[main] 'q' pressed -> stopping.")
                     break
 
+        # ---- Video ended: hold the LAST frame on screen ---------------------
+        # Without this, the window closes the instant the video runs out (a
+        # short clip ends in a fraction of a second). waitKey(0) means "wait
+        # forever until ANY key is pressed", so YOU decide when to close it.
+        if disp_cfg["show_window"]:
+            print("[main] Video ended. Press any key in the window to close.")
+            cv2.waitKey(0)
+
     # ---- Cleanup ------------------------------------------------------------
     if writer is not None:
         writer.release()
