@@ -1,0 +1,53 @@
+# =============================================================================
+# config.yaml  --  All the "knobs" for the pipeline live here, NOT in the code.
+# -----------------------------------------------------------------------------
+# Why a config file at all?
+#   So you can change the camera, the model, or a threshold WITHOUT editing
+#   Python. You (or a teammate) edit this text file, re-run, done.
+# =============================================================================
+
+# ---- Stage 1-2: where do frames come from? ----------------------------------
+source:
+  # This can be EITHER:
+  #   - a path to a local video file, e.g. "sample.mp4"  <-- WE ARE USING THIS NOW
+  #   - OR an RTSP camera URL, e.g. "rtsp://user:pass@192.168.1.50:554/stream1"
+  #   - OR the number 0 (as a string "0") to use your laptop webcam for testing.
+  # The reader auto-detects which one it is.
+  #
+  # Put a video file next to main.py and set its name here. Any common format
+  # works (.mp4, .mov, .avi). If you use a bare filename like "sample.mp4",
+  # run the program from the project folder so it can find the file.
+  url: "sample.mp4"
+
+  # RTSP streams can hiccup (network blips). If a frame read fails, how many
+  # times do we retry reconnecting before giving up?
+  max_reconnect_attempts: 5
+
+  # Seconds to wait between reconnect attempts.
+  reconnect_delay_seconds: 2
+
+# ---- Stage 3: the person-detection model ------------------------------------
+detector:
+  # Which YOLO weights file to use. "yolo11n.pt" is the NANO model:
+  # smallest + fastest, the right choice for CPU. Ultralytics downloads it
+  # automatically the first time it's used.
+  #   n = nano (fastest, least accurate)   s = small   m = medium   l = large
+  model: "yolo11n.pt"
+
+  # A detection is only kept if the model is at least this confident (0.0-1.0).
+  # Lower  = more detections, but more false positives.
+  # Higher = fewer detections, but you might miss people.
+  confidence_threshold: 0.4
+
+  # In the COCO dataset that YOLO is trained on, "person" is class id 0.
+  # We only care about people, so we filter to just this class.
+  person_class_id: 0
+
+# ---- Stage 5: drawing / display ---------------------------------------------
+display:
+  # Show a live window with the drawn frames? Set to false when running on a
+  # server with no screen.
+  show_window: true
+
+  # Optionally also save the annotated video to a file. Leave empty ("") to skip.
+  save_path: ""

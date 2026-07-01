@@ -1,0 +1,13 @@
+# YOLO model weights (auto-downloaded on first run; don't commit binaries)
+*.pt
+
+# Test / output artifacts
+detection_test.jpg
+*.mp4
+!sample.mp4        # ...but DO allow a deliberately-added sample video if you add one
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

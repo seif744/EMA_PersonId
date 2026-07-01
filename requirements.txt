@@ -1,0 +1,10 @@
+# Python dependencies for the Person Re-ID pipeline (stages 1-3).
+# Install everything with:   python -m pip install -r requirements.txt
+#
+# Pinned to the major versions this was built against; loosen if you need to.
+
+opencv-python>=4.11      # video capture (RTSP/file) + drawing
+numpy>=2.0               # arrays; frames are numpy arrays under the hood
+torch>=2.8               # the deep-learning engine YOLO runs on
+ultralytics>=8.3         # YOLO models (detection) + weights auto-download
+PyYAML>=6.0              # reads config.yaml
