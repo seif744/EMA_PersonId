@@ -49,13 +49,9 @@ def main():
     # Optional: a video writer, only if the user set display.save_path.
     writer = None
 
-    # ---- STAGE 1-2: open the stream, then loop over frames ------------------
-    # The `with` block guarantees the camera is released when we're done.
-    with VideoSource(
-        url=src_cfg["url"],
-        max_reconnect_attempts=src_cfg["max_reconnect_attempts"],
-        reconnect_delay_seconds=src_cfg["reconnect_delay_seconds"],
-    ) as cam:
+    # ---- STAGE 1-2: open the video file, then loop over frames --------------
+    # The `with` block guarantees the file handle is released when we're done.
+    with VideoSource(path=src_cfg["url"]) as cam:
 
         print("[main] Pipeline running. Press 'q' in the window to quit.")
 
